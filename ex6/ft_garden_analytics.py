@@ -19,10 +19,20 @@ class Plant:
             self._shadecalls += 1
 
         def display_stats(self, tree: bool) -> None:
-            if tree == False:
-                print(f"Stats: {self._growcalls} grow, {self._agecalls} age, {self._showcalls} show")
+            if (tree is False):
+                print(f"Stats: {self._growcalls} grow, ", end="")
+                print(f"{self._agecalls} age, ", end="")
+                print(f"{self._showcalls} show")
             else:
-                print(f"Stats: {self._growcalls} grow, {self._agecalls} age, {self._showcalls} show, {self._shadecalls} shade")
+                print(f"Stats: {self._growcalls} grow, ", end="")
+                print(f"{self._agecalls} age, ", end="")
+                print(f"{self._showcalls} show, ", end="")
+                print(f"{self._shadecalls} shade")
+
+    @classmethod
+    def create_anonymous(cls, name: str = "unknown plant",
+                         height: float = 0.0, days: int = 0) -> 'Plant':
+        return cls(name, height, days)
 
     @staticmethod
     def check_age(days: int) -> None:
@@ -43,12 +53,14 @@ class Plant:
             self._days = 0
         self._stats = Plant.Statistics()
 
-    def show(self) -> str:
+    def show(self) -> None:
+        self._stats.showcalls_counter()
         return(print(f"{self._name}: {self._height}cm, {self._days} days old"))
 
 
 class Flower(Plant):
-    def __init__(self, name: str, height: float, days: int, color: str) -> None:
+    def __init__(self, name: str, height: float, days: int,
+                 color: str) -> None:
         super().__init__(name, height, days)
         self._color = color
         self._bloomed = False
@@ -61,31 +73,34 @@ class Flower(Plant):
 
     def show(self) -> None:
         super().show()
-        if self._bloomed == True:
-            print(f" Color: {self._color}\n {self._name} is blooming beautifully!")
-        elif self._bloomed == False:
-            print(f" Color: {self._color}\n {self._name} has not bloomed yet")
-        self._stats.showcalls_counter()
+        if self._bloomed is True:
+            print(f" Color: {self._color}")
+            print(f"{self._name} is blooming beautifully!")
+        elif self._bloomed is False:
+            print(f" Color: {self._color}")
+            print(f"{self._name} has not bloomed yet")
 
 
 class Tree(Plant):
-    def __init__(self, name: str, height: float, days: int, diameter: float) -> None:
+    def __init__(self, name: str, height: float, days: int,
+                 diameter: float) -> None:
         super().__init__(name, height, days)
         self._diameter = diameter
-    
+
     def produce_shade(self) -> None:
         print(f"[asking the {self._name.lower()} to produce shade]")
-        print(f"Tree {self._name} now produces a shade of {self._height} long and {self._diameter}cm wide")
+        print(f"Tree {self._name} now produces a shade of", end="")
+        print(f"{self._height} long and {self._diameter}cm wide")
         self._stats.shadecalls_counter()
 
     def show(self) -> None:
         super().show()
         print(f" Trunk diameter: {self._diameter}cm")
-        self._stats.showcalls_counter()
 
 
 class Seed(Flower):
-    def __init__(self, name: str, height: float, days: int, color: str) -> None:
+    def __init__(self, name: str, height: float, days: int,
+                 color: str) -> None:
         super().__init__(name, height, days, color)
         self.number_seeds = 0
 
@@ -116,6 +131,7 @@ def ft_garden_analytics() -> None:
     flower = Flower("rose", 15.0, 10, "red")
     tree = Tree("oak", 200.0, 365, 5.0)
     seed = Seed("Sunflower", 80.0, 45, "yellow",)
+    anonymous = Plant.create_anonymous()
     print("=== Garden statistics ===")
     print("=== Check year-old")
     Plant.check_age(30)
@@ -141,8 +157,8 @@ def ft_garden_analytics() -> None:
     show_statistics(seed)
     print()
     print("=== Anonymous")
-
-
+    anonymous.show()
+    show_statistics(anonymous)
 
 
 if __name__ == "__main__":
