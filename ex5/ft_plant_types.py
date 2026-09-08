@@ -10,8 +10,8 @@ class Plant:
             print(f"{self._name} Error, age can't be negative")
             self._days = 0
 
-    def show(self) -> str:
-        return(print(f"{self._name}: {self._height}cm, {self._days} days old"))
+    def show(self) -> None:
+        print(f"{self._name}: {self._height}cm, {self._days} days old")
 
     def get_height(self) -> float:
         return (self._height)
@@ -33,11 +33,12 @@ class Plant:
             print("age update rejected")
         else:
             self._days = new_age
-            print(f"Age update: {self._age} days")
+            print(f"Age update: {self._days} days")
 
 
 class Flower(Plant):
-    def __init__(self, name: str, height: float, days: int, color: str) -> None:
+    def __init__(self, name: str, height: float, days: int,
+                 color: str) -> None:
         super().__init__(name, height, days)
         self._color = color
         self._bloomed = False
@@ -48,20 +49,26 @@ class Flower(Plant):
 
     def show(self) -> None:
         super().show()
-        if self._bloomed == True:
-            print(f" Color: {self._color}\n {self._name} is blooming beautifully!")
-        elif self._bloomed == False:
-            print(f" Color: {self._color}\n {self._name} has not bloomed yet")
+        if self._bloomed is True:
+            print(f" Color: {self._color}")
+            print(f" {self._name} is blooming beautifully!")
+        elif self._bloomed is False:
+            print(f" Color: {self._color}")
+            print(f" {self._name} has not bloomed yet")
 
 
 class Tree(Plant):
-    def __init__(self, name: str, height: float, days: int, diameter: float) -> None:
+    def __init__(self, name: str, height: float, days: int,
+                 diameter: float) -> None:
         super().__init__(name, height, days)
         self._diameter = diameter
-    
+
     def produce_shade(self) -> None:
-        print(f"[asking the {self._name.lower()} to produce shade]")
-        print(f"Tree {self._name} now produces a shade of {self._height} long and {self._diameter}cm wide")
+        print(f"[asking the {self._name.lower()} ", end="")
+        print("to produce shade]")
+        print(f"Tree {self._name} now produces a shade of ", end="")
+        print(f"{self._height} ", end="")
+        print(f"long and {self._diameter}cm wide")
 
     def show(self) -> None:
         super().show()
@@ -69,13 +76,14 @@ class Tree(Plant):
 
 
 class Vegetable(Plant):
-    def __init__(self, name: str, height: float, days: int, season: str, nutri_value: float) -> None:
+    def __init__(self, name: str, height: float, days: int, season: str,
+                 nutri_value: float) -> None:
         super().__init__(name, height, days)
         self._season = season
         self._nutri_value = nutri_value
 
     def grow(self) -> None:
-            self._height += 0.8
+        self._height += 0.8
 
     def age(self) -> None:
         self._days += 1
@@ -83,7 +91,8 @@ class Vegetable(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f" Harvest season: {self._season}\n Nutritional value: {round(self._nutri_value)}")
+        print(f" Harvest season: {self._season}\n Nutritional value: ", end="")
+        print(f"{round(self._nutri_value)}")
 
     def nutritional_value(self, days_grow) -> None:
         i = 1
