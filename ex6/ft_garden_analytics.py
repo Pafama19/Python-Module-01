@@ -55,7 +55,8 @@ class Plant:
 
     def show(self) -> None:
         self._stats.showcalls_counter()
-        return(print(f"{self._name}: {self._height}cm, {self._days} days old"))
+        print(f"{self._name}: {self._height}cm", end="")
+        print(f" {self._days} days old")
 
 
 class Flower(Plant):

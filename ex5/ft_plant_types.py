@@ -13,28 +13,6 @@ class Plant:
     def show(self) -> None:
         print(f"{self._name}: {self._height}cm, {self._days} days old")
 
-    def get_height(self) -> float:
-        return (self._height)
-
-    def get_age(self) -> int:
-        return (self._days)
-
-    def set_height(self, new_height: float) -> None:
-        if (new_height < 0):
-            print(f"{self._name}: Error, height can't be negative")
-            print("Height update rejected")
-        else:
-            self._height = new_height
-            print(f"Height update: {self._height}cm")
-
-    def set_age(self, new_age: int) -> None:
-        if (new_age < 0):
-            print(f"{self._name}: Error, age can't be negative")
-            print("age update rejected")
-        else:
-            self._days = new_age
-            print(f"Age update: {self._days} days")
-
 
 class Flower(Plant):
     def __init__(self, name: str, height: float, days: int,
@@ -94,7 +72,7 @@ class Vegetable(Plant):
         print(f" Harvest season: {self._season}\n Nutritional value: ", end="")
         print(f"{round(self._nutri_value)}")
 
-    def nutritional_value(self, days_grow) -> None:
+    def nutritional_value(self, days_grow: int) -> None:
         i = 1
         print(f"[make {self._name.lower()} grow and age for {days_grow} days]")
         while i in range(1, days_grow + 1):
